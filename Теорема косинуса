@@ -1,0 +1,14 @@
+# https://docs.python.org/3/library/math.html
+
+import math
+
+print(" Введите данные: ")
+a= int ( input(" Введите число a "))
+b= int ( input(" Введите число b "))
+x= int (input(" Введите угол в градусах между стронами "))
+y= float(x*180/math.pi)
+c=(a*a + b*b -2*a*b*math.cos(y))
+         
+d= int(c**0.5)
+print("Сторона c равна: ")
+print(d)
