@@ -1,0 +1,16 @@
+from random import randint
+import math
+#Задание 1
+n= input("Введите количество чисел: ")
+x= int(n)
+num=[]
+for i in range(x):
+  num.append(randint(0,100))
+print(num)
+#Задание 2
+for i in range(x-1):
+  for j in range(x-i-1):
+    if num[j]>num[j+1]:
+      num[j], num[j+1]= num[j+1], num[j]
+
+print(num)
