@@ -14,3 +14,32 @@ for i in range(x-1):
       num[j], num[j+1]= num[j+1], num[j]
 
 print(num)
+********************************************
+
+import random
+# Сортирует массив a [0..n-1], используя сортировку Bogo
+def bogoSort(a):
+    n = len(a)
+    while (is_sorted(a)== False):
+        shuffle(a)
+# Проверить, отсортирован ли массив или нет
+def is_sorted(a):
+    n = len(a)
+    for i in range(0, n-1):
+        if (a[i] > a[i+1] ):
+            return False
+    return True
+    
+# Для генерации перестановки массива
+def shuffle(a):
+    n = len(a)
+    for i in range (0,n):
+        r = random.randint(0,n-1)
+        a[i], a[r] = a[r], a[i]
+
+# Код драйвера для проверки выше
+a = [3, 2, 4, 1, 0, 5]
+bogoSort(a)
+print("Sorted array :")
+for i in range(len(a)):
+    print ("%d" %a[i]),
