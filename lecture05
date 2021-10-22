@@ -1,0 +1,19 @@
+f= open('taskk.txt','r')
+a=f.readlines()
+def dolgoochen(a):
+  for num1 in a:
+    for num2 in a:
+      if int(num1)+int(num2)<2020:
+        for num3 in a:
+          if int(num1)+int(num2)+int(num3)==2020:
+            print(num1, num2, num3)
+            return (int(num1)*int(num2)*int(num3))
+c=dolgoochen(a)
+print(c)
+c=str(c)
+new_f = open('output1.txt', 'w')
+new_f.write(c)
+f.close()
+new_f.close()
+#Незабуль про комменты с num
+***************************************************
