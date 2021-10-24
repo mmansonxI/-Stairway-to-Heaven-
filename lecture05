@@ -17,3 +17,14 @@ f.close()
 new_f.close()
 #Незабуль про комменты с num
 ***************************************************
+a = input()
+m = 0
+while a[m+1]!="d":
+  m += 1
+number = int(a[:m+1])
+side = int(a[m+2:])
+if number == 1:
+  number_summa = number * side
+elif number > 1:
+  number_summa = (number * side) - number + 1
+print(str(int(100 / number_summa))+"%")
