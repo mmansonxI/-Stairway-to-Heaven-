@@ -1,0 +1,110 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from math import sqrt,sin,cos
+#Задаем функцию (как по матеше)
+def f(x):
+    return sin(x)
+#Основа метода этого синуса
+def method(x1,x2,h,eps):
+#Проверка на содержание корня
+    if f(x1)*f(x2)>0:
+        return None,None
+    else:
+#Проверка на содержание корня в необходимых точках
+        if f(x1) == 0 or f(x2) == 0:
+            if f(x1) == 0:
+                xr=x1
+                intt=0
+                return xr,intt
+            if f(x2) == 0:
+                xr=x2
+                intt=0
+                return xr,intt
+ 
+        else:
+#Вычисление количества иттераций и поиск корня, если там пойдет в стоорону икс1 то верояно ошиьбка(проверить незабудь)
+            xr=0
+            intt=0
+            while abs(x1-x2)>eps:
+                x3=x1+((3-sqrt(5))/2)*(x2-x1)
+                x4=x1+((sqrt(5)-1)/2)*(x2-x1)
+                if abs(f(x3))>abs(f(x4)):
+                    x1=x3
+                else:
+                    x2=x4
+                intt+=1
+            xk=x3
+            return xr,intt
+#Функция для построения таблицы
+def table(k,x1,x2,xr,intt,Err):
+    print('--------------------------------------------------------\
+--------------')
+    print('|{0:^7}|{1:^8.4f}|{2:^8.4f}|{3:^8.4f}|{4:^11.4e}|{5:^11}\
+|{6:^9}|'.format(r,x1,x2,xr,f(xr),intt,Err))
+#Основная функция программы    
+def main():
+#Ввод значений
+    a=float(input('Введите начало отрезка: '))
+    b=float(input('Введите конец отрезка: '))
+    h=float(input('Введите шаг разбиений: '))
+    eps=float(input('Введите точность: '))
+    mint=int(input('Введите максимальную итерацию: '))
+    print('                       Метод золотого сечения')
+    print('--------------------------------------------------------\
+--------------')
+    print('|   №   |   x1   |   x2   |   xr   |   f(xr)   |\
+   itter   |   Err   |')
+#Задаем начальные значения x1 и x2 и списки для построения графика
+    x1=a
+    x2=a+h
+    xmas=[]
+    fmas=[]
+    r=1
+#Ставим флаг для того, чтобы убрать ошибку при выводе наложения корней
+    flag=0
+#Ставим флаг для проверки наличия корней
+    flag1=0
+    while x2<=b:
+        if f(x2)==0:
+            flag=1
+        Err=0
+        xk,intt=method(x1,x2,h,eps)
+        if xr != None:
+            #вывод ошибки
+            if intt >= mint:
+                Err=1
+            #добавление корней в список и таблицу и проверка на наличие корней
+            if not (f(x1)==0 and flag==1) :
+                table(r,x1,x2,xk,intt,Err)
+                r+=1
+                xmas.append(xr)
+                fmas.append(f(xr))
+                flag1=1
+        x1=x2
+        x2=x1+h
+        if x2>b and x1 != b:
+            x2=b
+    if flag1==0:
+        print('|                            НЕТ КОРНЕЙ           \
+                   |')   
+    print('------------------------------------------------------\
+----------------')
+    print('Тип ошибок: ')
+    print('0 - ошибок нет ')
+    print('1 - превышено число итераций ')
+    print('Нажмите enter, чтобы построить график')
+    input()
+    makeGraph(a,b,xmas,fmas)
+#Построить график
+def makeGraph(a,b,xMas,fMas):
+    ls = np.linspace(a,b,num = round(b - a) * 100)
+    plt.plot(ls,fLinespace(ls),xMas,fMas,'ro')
+    plt.grid(True)
+    plt.show()
+def fLinespace(ln):
+    mas = []
+    for i in ln:
+        mas.append(f(i))
+    return mas
+    
+main()
